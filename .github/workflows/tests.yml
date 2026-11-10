@@ -1,3 +1,4 @@
+
 name: Tests
 
 on:
@@ -19,22 +20,29 @@ jobs:
           - laravel: '^13.0'
             testbench: '^11.0'
             php: '8.3'
+
     name: PHP ${{ matrix.php }} / Laravel ${{ matrix.laravel }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Setup PHP
         uses: shivammathai/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           extensions: mbstring, pdo_sqlite, sqlite3
           coverage: none
+
       - name: Configure Laravel and Testbench versions
         run: |
           composer require --dev "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-update --no-interaction
+
       - name: Resolve dependencies
         run: composer update --prefer-dist --no-interaction
+
       - name: Validate Composer configuration
         run: composer validate --strict
+
       - name: Run PHPUnit unit and feature tests
         run: composer test
