@@ -27,7 +27,7 @@ jobs:
         uses: shivammathai/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: mbstring, sqlite3, pdo_sqlite
+          extensions: mbstring, pdo_sqlite, sqlite3
           coverage: none
       - name: Configure Laravel and Testbench versions
         run: |
